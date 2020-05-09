@@ -1,0 +1,1 @@
+server:  port: 8000devtools:  restart:    enabled: true #是否支持热部署
