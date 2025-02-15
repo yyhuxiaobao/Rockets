@@ -1,1 +1,1 @@
-server:  port: 8000devtools:  restart:    enabled: true #是否支持热部署
+server:  port: 8000devtools:  restart:    enabled: true #是否支持热部署#rabbitmqspring:  rabbitmq:    host: localhost    port: 5672    username: admin    password: adminzk:  curator:    connectStr: localhost:2181    sessionTimeoutMs: 3000    connectionTimeoutMs: 6000    maxRetries: 5    baseSleepTimeMs: 1000
