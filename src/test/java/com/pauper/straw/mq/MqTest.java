@@ -13,7 +13,24 @@ public class MqTest {
     private MsgSender msgSender;
 
     @Test
-    public void testSender(){
-        msgSender.send();
+    public void testSenderHelloQ(){
+        msgSender.sendHelloQ();
     }
+
+    @Test
+    public void testSenderObjectQ(){
+        msgSender.sendObjectQ();
+    }
+
+    @Test
+    public void testSenderFanoutQ(){
+        msgSender.sendFanoutQ();
+    }
+
+    @Test
+    public void testSenderTopicQ(){
+        msgSender.send_one();
+        //msgSender.send_two();
+    }
+
 }

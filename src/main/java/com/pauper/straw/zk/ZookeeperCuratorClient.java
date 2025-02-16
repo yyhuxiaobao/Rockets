@@ -30,9 +30,9 @@ public class ZookeeperCuratorClient implements InitializingBean {
     @Override
     public void afterPropertiesSet() throws Exception {
         //重试机制, 每个1秒钟重试1次，最多重试5次
-        RetryPolicy retryPolicy = new ExponentialBackoffRetry(baseSleepTimeMs, maxRetries);
+        /*RetryPolicy retryPolicy = new ExponentialBackoffRetry(baseSleepTimeMs, maxRetries);
         curatorFramework = CuratorFrameworkFactory.newClient(connectStr,
-                sessionTimeoutMs, connectionTimeoutMs, retryPolicy);
+                sessionTimeoutMs, connectionTimeoutMs, retryPolicy);*/
     }
 
     public CuratorFramework getCuratorClient() {

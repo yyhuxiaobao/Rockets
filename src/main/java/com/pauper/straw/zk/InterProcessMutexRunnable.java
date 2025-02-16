@@ -15,13 +15,13 @@ public class InterProcessMutexRunnable implements Runnable{
 
     @Override
     public void run() {
+        // 创建InterProcessMutex实例，用于获取分布式锁
+        String path = "/rootNode/lockNode";
+        InterProcessMutex mutex = new InterProcessMutex(curatorFramework, path);
         try {
             // 模拟随机加入的分布式节点
             int randomSleep = new Random().nextInt(1000);
             Thread.sleep(randomSleep);
-            String path = "/rootNode/lockNode";
-            // 创建InterProcessMutex实例，用于获取分布式锁
-            InterProcessMutex mutex = new InterProcessMutex(curatorFramework, path);
             // 阻塞，直到获取分布式锁
             mutex.acquire();
             if(mutex.isOwnedByCurrentThread()) {
@@ -31,14 +31,19 @@ public class InterProcessMutexRunnable implements Runnable{
                 Thread.sleep(5000);
                 // 业务处理完成
                 System.out.println(Thread.currentThread().getName() + " 业务处理完成");
-                // 释放分布式锁
-                mutex.release();
             }
             else {
                 throw new RuntimeException("获取分布式锁时被中断");
             }
         }catch (Exception e){
             e.printStackTrace();
+        }finally {
+            // 释放分布式锁
+            try {
+                mutex.release();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         }
 
     }
