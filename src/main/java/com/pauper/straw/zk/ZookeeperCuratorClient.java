@@ -10,8 +10,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 
-@Data
+
+@Component
 public class ZookeeperCuratorClient implements InitializingBean {
 
     @Value("${zk.curator.baseSleepTimeMs}")
@@ -27,8 +29,14 @@ public class ZookeeperCuratorClient implements InitializingBean {
 
     private CuratorFramework curatorFramework;
 
+    @PostConstruct
+    public void init(){
+        System.out.println("init");
+    }
+
     @Override
     public void afterPropertiesSet() throws Exception {
+        System.out.println("afterPropertiesSet");
         //重试机制, 每个1秒钟重试1次，最多重试5次
         /*RetryPolicy retryPolicy = new ExponentialBackoffRetry(baseSleepTimeMs, maxRetries);
         curatorFramework = CuratorFrameworkFactory.newClient(connectStr,
